@@ -41,9 +41,7 @@ jobs:
           az containerapp update \
             --name uk-property-app \
             --resource-group uk-property-rg \
-            --image ukpropacr.azurecr.io/uk-property-app:latest \
-            --volume "processedfiles" \
-            --mount-path "/mnt/processed"
+            --image ukpropacr.azurecr.io/uk-property-app:latest
 
       - name: Restart active revision
         run: |

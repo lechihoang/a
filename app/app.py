@@ -14,7 +14,7 @@ load_dotenv()
 # ── Page Config ───────────────────────────────────────────────────────────────
 
 st.set_page_config(
-    page_title="UK Property Analytics(Ver 1)",
+    page_title="UK Property Analytics(Version 1)",
     page_icon="🏠",
     layout="wide",
     initial_sidebar_state="expanded",
