@@ -201,3 +201,7 @@ Xem chi tiết: `.github/workflows/deploy.yml`
 
 
 az ad sp create-for-rbac --name "github-actions-sp" --role "Contributor" --scopes  "/subscriptions/c23bdbc8-e196-4a36-9397-b2a6055977f7/resourceGroups/uk-property-rg"
+
+az role assignment create --assignee "$PRINCIPAL_ID" --role "Storage Blob Data Reader" --scope "/subscriptions/$ACCOUNT_ID/resourceGroups/uk-property-rg/providers/Microsoft.Storage/storageAccounts/ukpropaistg"
+az role assignment create --assignee "$PRINCIPAL_ID" --role "Storage File Data Privileged Contributor" --scope "/subscriptions/$ACCOUNT_ID/resourceGroups/uk-property-rg/providers/Microsoft.Storage/storageAccounts/ukpropaistg"                  
+az role assignment create --assignee "$PRINCIPAL_ID" --role "AcrPull" --scope "/subscriptions/$ACCOUNT_ID/resourceGroups/uk-property-rg/providers/Microsoft.ContainerRegistry/registries/ukpropacr"
