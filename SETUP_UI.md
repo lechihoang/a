@@ -200,5 +200,4 @@ Xem chi tiết: `.github/workflows/deploy.yml`
 - [ ] Scale: min 1, max 5, concurrency 20
 
 
-
-az ad sp create-for-rbac --skip-assignment
+az ad sp create-for-rbac --name "github-actions-sp" --role "Contributor" --scopes  "/subscriptions/c23bdbc8-e196-4a36-9397-b2a6055977f7/resourceGroups/uk-property-rg"
