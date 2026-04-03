@@ -198,3 +198,7 @@ Xem chi tiết: `.github/workflows/deploy.yml`
 - [ ] Volume `processedfiles` mount tại `/mnt/processed`
 - [ ] Ingress external + port `8501`
 - [ ] Scale: min 1, max 5, concurrency 20
+
+
+
+az ad sp create-for-rbac --skip-assignment

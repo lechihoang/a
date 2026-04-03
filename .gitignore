@@ -19,6 +19,7 @@ data/*.csv
 
 # macOS
 .DS_Store
+.mcp.json
 
 # Logs
 *.log
