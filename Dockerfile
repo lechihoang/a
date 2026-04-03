@@ -8,7 +8,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 RUN chmod +x start.sh
-
+ENV AZURE_STORAGE_ACCOUNT_NAME=ukpropaistg
 ENV AZURE_STORAGE_SKIP_ETL=0
 
 EXPOSE 8501
