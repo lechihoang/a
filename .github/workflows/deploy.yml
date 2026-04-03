@@ -1,0 +1,51 @@
+name: Build & Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Azure Login
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Login ACR
+        run: az acr login --name ukpropacr
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and push image
+        run: |
+          docker buildx build \
+            --platform linux/amd64 \
+            -t ukpropacr.azurecr.io/uk-property-app:${{ github.run_number }} \
+            -t ukpropacr.azurecr.io/uk-property-app:latest \
+            --push .
+
+      - name: Deploy Streamlit App
+        run: |
+          az containerapp update \
+            --name uk-property-app \
+            --resource-group uk-property-rg \
+            --image ukpropacr.azurecr.io/uk-property-app:latest \
+            --volume "processedfiles" \
+            --mount-path "/mnt/processed"
+
+      - name: Restart active revision
+        run: |
+          REV=$(az containerapp revision list --name uk-property-app --resource-group uk-property-rg --query "[?properties.active==\`true\`].name | [0]" -o tsv)
+          az containerapp revision restart --name uk-property-app --resource-group uk-property-rg --revision "$REV"
